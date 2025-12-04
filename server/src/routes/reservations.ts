@@ -13,7 +13,7 @@ import {
   extendReservation,
   acceptAgreement,
 } from '../services/reservationService';
-import { CreateReservationRequest } from '../types';
+import { CreateReservationRequest, ReservationStatus } from '../types';
 
 const router = Router();
 
@@ -21,10 +21,12 @@ const router = Router();
 router.get('/', authMiddleware, (req: Request, res: Response) => {
   const { status } = req.query;
 
+  const validStatuses = ['pending', 'for_endorsement', 'for_approval', 'approved', 'cancelled', 'expired'];
+  
   let reservations;
   if (req.user?.role === 'admin') {
-    if (status) {
-      reservations = getReservationsByStatus(status as string as 'pending' | 'for_endorsement' | 'for_approval' | 'approved' | 'cancelled' | 'expired');
+    if (status && validStatuses.includes(status as string)) {
+      reservations = getReservationsByStatus(status as ReservationStatus);
     } else {
       reservations = getAllReservations();
     }

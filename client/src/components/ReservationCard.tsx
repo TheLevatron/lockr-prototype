@@ -46,8 +46,10 @@ export function ReservationCard({ reservation, showActions = true }: Reservation
   };
 
   const handleSubmit = async () => {
-    // In a real app, this would involve file upload
-    await submitMutation.mutateAsync({ id: reservation.id, receiptUrl: 'receipt-uploaded.pdf' });
+    // TODO: Implement actual file upload functionality
+    // For now, this simulates a successful receipt upload with a placeholder URL
+    const placeholderReceiptUrl = `receipt-${reservation.referralSlipNo}.pdf`;
+    await submitMutation.mutateAsync({ id: reservation.id, receiptUrl: placeholderReceiptUrl });
   };
 
   const handleAcceptAgreement = async () => {

@@ -73,14 +73,18 @@ export async function seedData(): Promise<void> {
     dataStore.floorPlans.set(floorPlan.id, floorPlan);
 
     // Create lockers for each floor (10 lockers per floor for demo)
+    // Use deterministic pattern: lockers 5, 6, 7, 10 are occupied on each floor
+    const occupiedLockers = [5, 6, 7, 10];
+    const sizes: Array<'small' | 'medium' | 'large'> = ['small', 'medium', 'large'];
+    
     for (let i = 1; i <= 10; i++) {
       const locker: Locker = {
         id: uuidv4(),
         lockerNumber: `${floor.number}${i.toString().padStart(2, '0')}`,
         locationId: location.id,
         floorNumber: floor.number,
-        status: Math.random() > 0.3 ? 'available' : 'occupied',
-        size: ['small', 'medium', 'large'][Math.floor(Math.random() * 3)] as 'small' | 'medium' | 'large',
+        status: occupiedLockers.includes(i) ? 'occupied' : 'available',
+        size: sizes[(i - 1) % 3], // Cycle through sizes deterministically
         accessible: i === 1 || i === 2, // First two lockers are accessible
         createdAt: new Date(),
         updatedAt: new Date(),
