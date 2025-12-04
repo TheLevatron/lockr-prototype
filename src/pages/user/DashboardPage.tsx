@@ -33,32 +33,31 @@ export function UserDashboardPage() {
   const totalLockers = floors.reduce((sum, f) => sum + f.lockerCount, 0);
 
   return (
-    <div className="space-y-6 animate-fade-in">
+    <div className="space-y-8 animate-fade-in">
       {/* Welcome */}
-      <div>
-        <h1 className="text-2xl font-bold text-[var(--color-text-primary)]">
+      <div className="mb-2">
+        <h1 className="text-2xl sm:text-3xl font-bold text-[var(--color-text-primary)]">
           Welcome, {user?.firstName}!
         </h1>
-        <p className="text-[var(--color-text-secondary)]">
+        <p className="text-[var(--color-text-secondary)] mt-1">
           Manage your locker reservation below
         </p>
       </div>
 
       {/* Stats */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <Card>
-          <CardContent>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        <Card className="p-5">
+          <CardContent className="p-0">
             <div className="flex items-center gap-4">
-              <div className="w-12 h-12 rounded-xl bg-[var(--color-primary-100)] flex items-center justify-center">
-                <Box className="w-6 h-6 text-[var(--color-primary-600)]" />
+              <div className="w-14 h-14 rounded-xl bg-[var(--color-primary-100)] flex items-center justify-center">
+                <Box className="w-7 h-7 text-[var(--color-primary-600)]" />
               </div>
               <div>
-                <p className="text-sm text-[var(--color-text-tertiary)]">Available Lockers</p>
-                <p className="text-2xl font-bold text-[var(--color-text-primary)]">
+                <p className="text-sm text-[var(--color-text-tertiary)] mb-1">Available Lockers</p>
+                <p className="text-3xl font-bold text-[var(--color-text-primary)]">
                   {totalAvailable}
-                  <span className="text-sm font-normal text-[var(--color-text-tertiary)]">
-                    {' '}
-                    / {totalLockers}
+                  <span className="text-base font-normal text-[var(--color-text-tertiary)]">
+                    {' '}/ {totalLockers}
                   </span>
                 </p>
               </div>
@@ -66,15 +65,15 @@ export function UserDashboardPage() {
           </CardContent>
         </Card>
 
-        <Card>
-          <CardContent>
+        <Card className="p-5">
+          <CardContent className="p-0">
             <div className="flex items-center gap-4">
-              <div className="w-12 h-12 rounded-xl bg-[var(--color-warning-100)] flex items-center justify-center">
-                <Clock className="w-6 h-6 text-[var(--color-warning-600)]" />
+              <div className="w-14 h-14 rounded-xl bg-[var(--color-warning-100)] flex items-center justify-center">
+                <Clock className="w-7 h-7 text-[var(--color-warning-600)]" />
               </div>
               <div>
-                <p className="text-sm text-[var(--color-text-tertiary)]">Pending</p>
-                <p className="text-2xl font-bold text-[var(--color-text-primary)]">
+                <p className="text-sm text-[var(--color-text-tertiary)] mb-1">Pending</p>
+                <p className="text-3xl font-bold text-[var(--color-text-primary)]">
                   {pendingReservation ? '1' : '0'}
                 </p>
               </div>
@@ -82,15 +81,15 @@ export function UserDashboardPage() {
           </CardContent>
         </Card>
 
-        <Card>
-          <CardContent>
+        <Card className="p-5">
+          <CardContent className="p-0">
             <div className="flex items-center gap-4">
-              <div className="w-12 h-12 rounded-xl bg-[var(--color-success-100)] flex items-center justify-center">
-                <CheckCircle className="w-6 h-6 text-[var(--color-success-600)]" />
+              <div className="w-14 h-14 rounded-xl bg-[var(--color-success-100)] flex items-center justify-center">
+                <CheckCircle className="w-7 h-7 text-[var(--color-success-600)]" />
               </div>
               <div>
-                <p className="text-sm text-[var(--color-text-tertiary)]">My Locker</p>
-                <p className="text-2xl font-bold text-[var(--color-text-primary)]">
+                <p className="text-sm text-[var(--color-text-tertiary)] mb-1">My Locker</p>
+                <p className="text-3xl font-bold text-[var(--color-text-primary)]">
                   {activeReservation ? activeReservation.locker.number : 'None'}
                 </p>
               </div>
@@ -101,26 +100,26 @@ export function UserDashboardPage() {
 
       {/* Active Reservation */}
       {activeReservation && (
-        <Card>
-          <CardContent>
-            <CardTitle as="h2" className="mb-4">
+        <Card className="p-6">
+          <CardContent className="p-0">
+            <CardTitle as="h2" className="mb-5">
               Your Active Locker
             </CardTitle>
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-4">
-                <div className="w-16 h-16 rounded-xl bg-[var(--color-success-500)] flex items-center justify-center text-white text-lg font-bold">
+            <div className="flex items-center justify-between flex-wrap gap-4">
+              <div className="flex items-center gap-5">
+                <div className="w-16 h-16 rounded-xl bg-[var(--color-success-500)] flex items-center justify-center text-white text-xl font-bold shadow-md">
                   {activeReservation.locker.number.split('-')[1]}
                 </div>
                 <div>
-                  <p className="font-semibold text-[var(--color-text-primary)]">
+                  <p className="font-semibold text-lg text-[var(--color-text-primary)]">
                     Locker {activeReservation.locker.number}
                   </p>
-                  <p className="text-sm text-[var(--color-text-secondary)]">
+                  <p className="text-sm text-[var(--color-text-secondary)] mt-0.5">
                     {activeReservation.academicYear} - {activeReservation.semester} Semester
                   </p>
                 </div>
               </div>
-              <Button variant="outline" onClick={() => navigate('/reservations')}>
+              <Button variant="outline" size="md" onClick={() => navigate('/reservations')}>
                 View Details
               </Button>
             </div>
@@ -130,26 +129,26 @@ export function UserDashboardPage() {
 
       {/* Pending Reservation */}
       {pendingReservation && !activeReservation && (
-        <Card className="border-[var(--color-warning-400)]">
-          <CardContent>
-            <CardTitle as="h2" className="mb-4">
+        <Card className="border-2 border-[var(--color-warning-400)] p-6">
+          <CardContent className="p-0">
+            <CardTitle as="h2" className="mb-5">
               Pending Reservation
             </CardTitle>
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-4">
-                <div className="w-16 h-16 rounded-xl bg-[var(--color-warning-500)] flex items-center justify-center text-white text-lg font-bold">
+            <div className="flex items-center justify-between flex-wrap gap-4">
+              <div className="flex items-center gap-5">
+                <div className="w-16 h-16 rounded-xl bg-[var(--color-warning-500)] flex items-center justify-center text-white text-xl font-bold shadow-md">
                   {pendingReservation.locker.number.split('-')[1]}
                 </div>
                 <div>
-                  <p className="font-semibold text-[var(--color-text-primary)]">
+                  <p className="font-semibold text-lg text-[var(--color-text-primary)]">
                     Locker {pendingReservation.locker.number}
                   </p>
-                  <p className="text-sm text-[var(--color-warning-600)]">
+                  <p className="text-sm text-[var(--color-warning-600)] mt-0.5 font-medium">
                     Status: {pendingReservation.status.replace('_', ' ')}
                   </p>
                 </div>
               </div>
-              <Button variant="outline" onClick={() => navigate('/reservations')}>
+              <Button variant="outline" size="md" onClick={() => navigate('/reservations')}>
                 Track Status
               </Button>
             </div>
@@ -159,8 +158,8 @@ export function UserDashboardPage() {
 
       {/* Floor Plans */}
       <div>
-        <div className="flex items-center justify-between mb-4">
-          <h2 className="text-lg font-semibold text-[var(--color-text-primary)]">
+        <div className="flex items-center justify-between mb-5">
+          <h2 className="text-xl font-semibold text-[var(--color-text-primary)]">
             Select a Floor
           </h2>
           <Button variant="ghost" onClick={() => navigate('/floors')}>
@@ -169,17 +168,17 @@ export function UserDashboardPage() {
         </div>
         
         {floorsLoading ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             {[1, 2, 3].map((i) => (
-              <Card key={i} className="animate-pulse">
-                <CardContent>
-                  <div className="h-32 bg-[var(--color-bg-tertiary)] rounded-lg" />
+              <Card key={i} className="animate-pulse p-6">
+                <CardContent className="p-0">
+                  <div className="h-40 bg-[var(--color-bg-tertiary)] rounded-lg" />
                 </CardContent>
               </Card>
             ))}
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             {floors.slice(0, 3).map((floor) => (
               <FloorCard key={floor.id} floor={floor} />
             ))}

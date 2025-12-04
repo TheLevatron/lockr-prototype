@@ -52,7 +52,7 @@ export function AppShell() {
 
           <main
             id="main-content"
-            className="flex-1 p-4 lg:p-6"
+            className="flex-1 p-5 lg:p-8"
             role="main"
             tabIndex={-1}
           >

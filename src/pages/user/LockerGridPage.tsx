@@ -101,11 +101,11 @@ export function LockerGridPage() {
     switch (currentStep) {
       case 'select':
         return (
-          <Card className="animate-fade-in">
-            <CardContent>
-              <CardTitle as="h2" className="mb-4">
-                <div className="flex items-center gap-2">
-                  <Box className="w-5 h-5 text-[var(--color-primary-600)]" />
+          <Card className="animate-fade-in p-6 sm:p-8">
+            <CardContent className="p-0">
+              <CardTitle as="h2" className="mb-6">
+                <div className="flex items-center gap-3">
+                  <Box className="w-6 h-6 text-[var(--color-primary-600)]" />
                   Select a Locker - {floor?.name}
                 </div>
               </CardTitle>
@@ -124,11 +124,11 @@ export function LockerGridPage() {
                 />
               )}
 
-              <div className="mt-6 pt-4 border-t border-[var(--color-border-primary)] flex justify-between">
+              <div className="mt-8 pt-6 border-t border-[var(--color-border-primary)] flex justify-between">
                 <Button variant="ghost" onClick={() => navigate('/floors')} leftIcon={<ArrowLeft className="w-4 h-4" />}>
                   Back to Floors
                 </Button>
-                <Button variant="primary" onClick={handleContinueToPolicy} disabled={!selectedLocker}>
+                <Button variant="primary" size="md" onClick={handleContinueToPolicy} disabled={!selectedLocker}>
                   Continue
                 </Button>
               </div>
@@ -170,11 +170,11 @@ export function LockerGridPage() {
   };
 
   return (
-    <div className="max-w-4xl mx-auto">
+    <div className="max-w-5xl mx-auto">
       {/* Progress indicator */}
       {currentStep !== 'success' && (
-        <div className="mb-6">
-          <div className="flex items-center justify-center gap-2 text-sm">
+        <div className="mb-8">
+          <div className="flex items-center justify-center gap-3 sm:gap-4 text-sm">
             {(['select', 'policy', 'upload'] as const).map((step, index) => (
               <React.Fragment key={step}>
                 <div
@@ -185,7 +185,7 @@ export function LockerGridPage() {
                   }`}
                 >
                   <span
-                    className={`w-6 h-6 rounded-full flex items-center justify-center text-xs ${
+                    className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${
                       currentStep === step
                         ? 'bg-[var(--color-primary-600)] text-white'
                         : ['select'].indexOf(currentStep) < ['select', 'policy', 'upload'].indexOf(step)
@@ -198,7 +198,7 @@ export function LockerGridPage() {
                   <span className="hidden sm:inline capitalize">{step === 'select' ? 'Select Locker' : step === 'policy' ? 'Review Policy' : 'Upload Receipt'}</span>
                 </div>
                 {index < 2 && (
-                  <div className="w-8 h-0.5 bg-[var(--color-border-primary)]" />
+                  <div className="w-12 h-0.5 bg-[var(--color-border-primary)]" />
                 )}
               </React.Fragment>
             ))}

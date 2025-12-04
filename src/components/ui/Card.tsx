@@ -11,18 +11,18 @@ interface CardProps {
 export function Card({ children, className, padding = 'md', hover = false }: CardProps) {
   const paddingStyles = {
     none: '',
-    sm: 'p-3',
-    md: 'p-4 sm:p-6',
+    sm: 'p-4',
+    md: 'p-5 sm:p-6',
     lg: 'p-6 sm:p-8',
   };
 
   return (
     <div
       className={clsx(
-        'bg-[var(--color-bg-primary)] rounded-xl shadow-sm',
+        'bg-[var(--color-bg-primary)] rounded-2xl shadow-sm',
         'border border-[var(--color-border-primary)]',
         paddingStyles[padding],
-        hover && 'transition-shadow duration-200 hover:shadow-md cursor-pointer',
+        hover && 'transition-all duration-200 hover:shadow-md hover:border-[var(--color-border-secondary)] cursor-pointer',
         className
       )}
     >

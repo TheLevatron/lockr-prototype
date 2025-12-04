@@ -26,9 +26,9 @@ export function SplashPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-[var(--color-primary-600)] to-[var(--color-primary-800)]">
-      <div className="container mx-auto px-4 py-12 min-h-screen flex flex-col">
+      <div className="container mx-auto px-6 sm:px-8 lg:px-12 py-8 min-h-screen flex flex-col">
         {/* Header */}
-        <header className="flex items-center gap-2 mb-12 animate-fade-in">
+        <header className="flex items-center gap-3 mb-8 animate-fade-in">
           <div className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center">
             <Lock className="w-6 h-6 text-white" />
           </div>
@@ -36,14 +36,14 @@ export function SplashPage() {
         </header>
 
         {/* Hero */}
-        <main className="flex-1 flex flex-col lg:flex-row items-center justify-center gap-12">
+        <main className="flex-1 flex flex-col lg:flex-row items-center justify-center gap-16 py-8">
           <div className="lg:w-1/2 text-center lg:text-left animate-slide-in-bottom">
-            <h1 className="text-4xl lg:text-5xl font-bold text-white mb-4">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
               Digital Locker
               <br />
               <span className="text-[var(--color-primary-200)]">Management</span>
             </h1>
-            <p className="text-lg text-white/80 mb-8 max-w-md mx-auto lg:mx-0">
+            <p className="text-lg sm:text-xl text-white/80 mb-10 max-w-lg mx-auto lg:mx-0 leading-relaxed">
               A modern platform for managing school locker reservations. Simple, secure, and
               efficient.
             </p>
@@ -53,14 +53,14 @@ export function SplashPage() {
                 variant="secondary"
                 onClick={() => navigate('/login')}
                 rightIcon={<ArrowRight className="w-5 h-5" />}
-                className="bg-white text-[var(--color-primary-700)] hover:bg-white/90"
+                className="bg-white text-[var(--color-primary-700)] hover:bg-white/90 px-8"
               >
                 Get Started
               </Button>
               <Button
                 size="lg"
                 variant="outline"
-                className="border-white/30 text-white hover:bg-white/10"
+                className="border-white/30 text-white hover:bg-white/10 px-8"
                 onClick={() => navigate('/login')}
               >
                 Learn More
@@ -69,24 +69,24 @@ export function SplashPage() {
           </div>
 
           {/* Features */}
-          <div className="lg:w-1/2 grid gap-4 animate-fade-in">
+          <div className="lg:w-1/2 grid gap-5 animate-fade-in w-full max-w-xl lg:max-w-none">
             {features.map((feature, index) => (
               <div
                 key={feature.title}
                 className={clsx(
-                  'flex items-start gap-4 p-6 rounded-2xl',
+                  'flex items-start gap-5 p-6 rounded-2xl',
                   'bg-white/10 backdrop-blur-sm',
                   'transform transition-all duration-300',
                   'hover:bg-white/20 hover:scale-[1.02]'
                 )}
                 style={{ animationDelay: `${index * 100}ms` }}
               >
-                <div className="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center text-white flex-shrink-0">
+                <div className="w-14 h-14 rounded-xl bg-white/20 flex items-center justify-center text-white flex-shrink-0">
                   {feature.icon}
                 </div>
-                <div>
-                  <h3 className="font-semibold text-white mb-1">{feature.title}</h3>
-                  <p className="text-sm text-white/70">{feature.description}</p>
+                <div className="pt-1">
+                  <h3 className="font-semibold text-white text-lg mb-1">{feature.title}</h3>
+                  <p className="text-white/70">{feature.description}</p>
                 </div>
               </div>
             ))}
@@ -94,7 +94,7 @@ export function SplashPage() {
         </main>
 
         {/* Footer */}
-        <footer className="text-center text-white/50 text-sm mt-12 animate-fade-in">
+        <footer className="text-center text-white/60 text-sm py-6 animate-fade-in">
           <p>
             LockR: A Digital Platform for Management of School Lockers
             <br />

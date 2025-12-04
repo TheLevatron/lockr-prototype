@@ -93,11 +93,11 @@ export function LockerGrid({
   return (
     <div className="w-full">
       {/* Legend */}
-      <div className="flex flex-wrap gap-4 mb-4" aria-label="Locker status legend">
+      <div className="flex flex-wrap gap-5 mb-6 p-4 bg-[var(--color-bg-primary)] rounded-xl border border-[var(--color-border-primary)]" aria-label="Locker status legend">
         {(['available', 'occupied', 'reserved', 'pending', 'disabled'] as const).map((status) => (
           <div key={status} className="flex items-center gap-2">
-            <div className={clsx('w-4 h-4 rounded', getLockerColor(status))} />
-            <span className="text-sm text-[var(--color-text-secondary)] capitalize">{status}</span>
+            <div className={clsx('w-5 h-5 rounded-md', getLockerColor(status))} />
+            <span className="text-sm font-medium text-[var(--color-text-secondary)] capitalize">{status}</span>
           </div>
         ))}
       </div>
@@ -107,7 +107,7 @@ export function LockerGrid({
         ref={gridRef}
         role="grid"
         aria-label="Locker grid"
-        className="grid gap-2"
+        className="grid gap-3"
         style={{
           gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))`,
         }}
@@ -126,15 +126,15 @@ export function LockerGrid({
               onKeyDown={(e) => handleKeyDown(e, index)}
               onFocus={() => setFocusedIndex(index)}
               className={clsx(
-                'w-full aspect-square rounded-lg',
+                'w-full aspect-square rounded-xl',
                 'flex flex-col items-center justify-center',
-                'text-white text-xs font-medium',
+                'text-white font-semibold',
                 'transition-all duration-150',
                 'focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[var(--color-primary-500)]',
                 getLockerColor(locker.status),
-                selectedLockerId === locker.id && 'ring-2 ring-[var(--color-primary-500)] ring-offset-2',
+                selectedLockerId === locker.id && 'ring-4 ring-[var(--color-primary-500)] ring-offset-2',
                 isSelectable(locker)
-                  ? 'cursor-pointer active:scale-95'
+                  ? 'cursor-pointer active:scale-95 shadow-md hover:shadow-lg'
                   : 'cursor-not-allowed opacity-80'
               )}
               aria-label={`Locker ${locker.number}, ${locker.status}, ${locker.size} size`}
@@ -150,7 +150,7 @@ export function LockerGrid({
       {/* Selected locker info */}
       {selectedLockerId && (
         <div
-          className="mt-4 p-4 bg-[var(--color-bg-tertiary)] rounded-lg animate-fade-in"
+          className="mt-6 p-5 bg-[var(--color-bg-tertiary)] rounded-xl animate-fade-in border border-[var(--color-border-primary)]"
           role="status"
           aria-live="polite"
         >

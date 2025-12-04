@@ -22,29 +22,29 @@ export function FloorCard({ floor, onClick }: FloorCardProps) {
   };
 
   return (
-    <Card hover className="animate-fade-in">
-      <CardContent>
-        <div className="flex items-start justify-between mb-4">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-lg bg-[var(--color-primary-100)] flex items-center justify-center">
-              <MapPin className="w-5 h-5 text-[var(--color-primary-600)]" />
+    <Card hover className="animate-fade-in p-6">
+      <CardContent className="p-0">
+        <div className="flex items-start justify-between mb-5">
+          <div className="flex items-center gap-4">
+            <div className="w-12 h-12 rounded-xl bg-[var(--color-primary-100)] flex items-center justify-center">
+              <MapPin className="w-6 h-6 text-[var(--color-primary-600)]" />
             </div>
             <div>
-              <h3 className="font-semibold text-[var(--color-text-primary)]">{floor.name}</h3>
-              <p className="text-sm text-[var(--color-text-tertiary)]">{floor.building}</p>
+              <h3 className="font-semibold text-lg text-[var(--color-text-primary)]">{floor.name}</h3>
+              <p className="text-sm text-[var(--color-text-tertiary)] mt-0.5">{floor.building}</p>
             </div>
           </div>
         </div>
 
         {/* Availability bar */}
-        <div className="mb-4">
-          <div className="flex items-center justify-between mb-1.5">
+        <div className="mb-5">
+          <div className="flex items-center justify-between mb-2">
             <span className="text-sm text-[var(--color-text-secondary)]">Availability</span>
             <span className="text-sm font-medium text-[var(--color-text-primary)]">
               {floor.availableCount} / {floor.lockerCount}
             </span>
           </div>
-          <div className="h-2 bg-[var(--color-bg-tertiary)] rounded-full overflow-hidden">
+          <div className="h-2.5 bg-[var(--color-bg-tertiary)] rounded-full overflow-hidden">
             <div
               className={clsx(
                 'h-full rounded-full transition-all duration-300',
@@ -66,12 +66,12 @@ export function FloorCard({ floor, onClick }: FloorCardProps) {
 
         {/* Description */}
         {floor.description && (
-          <p className="text-sm text-[var(--color-text-tertiary)] mb-4">{floor.description}</p>
+          <p className="text-sm text-[var(--color-text-tertiary)] mb-5 leading-relaxed">{floor.description}</p>
         )}
 
         <Button
           variant="primary"
-          size="sm"
+          size="md"
           className="w-full"
           onClick={handleClick}
           leftIcon={<Box className="w-4 h-4" />}
