@@ -6,9 +6,10 @@ interface CardProps {
   className?: string;
   padding?: 'none' | 'sm' | 'md' | 'lg';
   hover?: boolean;
+  gradient?: boolean;
 }
 
-export function Card({ children, className, padding = 'md', hover = false }: CardProps) {
+export function Card({ children, className, padding = 'md', hover = false, gradient = false }: CardProps) {
   const paddingStyles = {
     none: '',
     sm: 'p-4',
@@ -19,10 +20,14 @@ export function Card({ children, className, padding = 'md', hover = false }: Car
   return (
     <div
       className={clsx(
-        'bg-[var(--color-bg-primary)] rounded-2xl shadow-sm',
+        'rounded-2xl',
+        gradient 
+          ? 'bg-gradient-to-br from-white to-[var(--color-bg-secondary)] dark:from-[var(--color-bg-secondary)] dark:to-[var(--color-bg-primary)]'
+          : 'bg-[var(--color-bg-primary)]',
         'border border-[var(--color-border-primary)]',
+        'shadow-[var(--shadow-card)]',
         paddingStyles[padding],
-        hover && 'transition-all duration-200 hover:shadow-md hover:border-[var(--color-border-secondary)] cursor-pointer',
+        hover && 'transition-all duration-300 hover:shadow-lg hover:border-[var(--color-primary-200)] hover:-translate-y-1 cursor-pointer',
         className
       )}
     >
@@ -38,7 +43,7 @@ interface CardHeaderProps {
 
 export function CardHeader({ children, className }: CardHeaderProps) {
   return (
-    <div className={clsx('mb-4 pb-4 border-b border-[var(--color-border-primary)]', className)}>
+    <div className={clsx('mb-5 pb-5 border-b border-[var(--color-border-primary)]', className)}>
       {children}
     </div>
   );
@@ -81,7 +86,7 @@ export function CardFooter({ children, className }: CardFooterProps) {
   return (
     <div
       className={clsx(
-        'mt-4 pt-4 border-t border-[var(--color-border-primary)] flex items-center gap-3',
+        'mt-5 pt-5 border-t border-[var(--color-border-primary)] flex items-center gap-3',
         className
       )}
     >
