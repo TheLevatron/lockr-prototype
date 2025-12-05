@@ -31,4 +31,4 @@ export const router = createBrowserRouter([
       { path: 'floor', element: <AdminFloor /> },
     ],
   },
-])
+], { basename: import.meta.env.BASE_URL })
