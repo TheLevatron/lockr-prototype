@@ -4,11 +4,11 @@ import { AppShell } from '../../components/AppShell'
 export function UserApp() {
   return (
     <AppShell
-      nav=[
+      nav={[
         { label: 'Dashboard', to: '/app' },
         { label: 'Floor Plan', to: '/app' },
         { label: 'My Reservations', to: '/app?tab=reservations' },
-      ]
+      ]}
     >
       <Outlet />
     </AppShell>
