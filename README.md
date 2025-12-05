@@ -1,186 +1,159 @@
-# LockR - A Digital Platform for Management of School Lockers
+# LockR Prototype
 
-A web-based locker reservation application derived from the requirements and domain model presented in the thesis "LockR: A Digital Platform for Management of School Lockers" (iACADEMY).
-
-## Overview
-
-LockR is a centralized web application designed to digitize the locker reservation and management workflow. The system allows students to view locker availability in real-time, reserve slots through an intuitive interface, and automatically generate digital referral slips. Administrators (OSAS staff) can manage lockers, approve reservations, and track locker usage through a user-friendly dashboard.
+A modern, accessible web-based locker reservation system for schools, based on the thesis "LockR: A Digital Platform for Management of School Lockers."
 
 ## Features
 
-### Student Features
-- **Registration/Login**: Create an account and securely log in
-- **Browse Lockers**: View available lockers by location and floor
-- **Reserve Lockers**: Select and reserve available lockers for a term
-- **View Reservations**: Track reservation status and referral slip numbers
-- **Submit Payment Receipts**: Upload payment confirmation for approval
+### User Features
+- **Floor Plan Selection**: Browse available floors and their locker availability
+- **Locker Grid View**: Visual grid of lockers with real-time availability status
+- **Reservation Flow**: Multi-step reservation process with policy acknowledgment
+- **Receipt Upload**: Drag-and-drop file upload with preview and validation
+- **Reservation Tracking**: View and track reservation status
 
-### Admin Features (OSAS)
-- **Manage Locations**: Create and configure building locations
-- **Manage Lockers**: Add, edit, and delete lockers
-- **Process Reservations**: Endorse and approve student reservations
-- **Dashboard**: View all reservations and their statuses
+### Admin Features
+- **Dashboard**: Overview of pending, approved, and occupied reservations
+- **Tabbed Management**: Separate views for endorsement, approval, occupied, and history
+- **Floor Plan Editor**: Add, edit, and delete lockers from floor plans
+- **Academic Year Wizard**: Configure academic year and reservation periods
+
+### Accessibility (a11y)
+- ✅ Semantic HTML with proper heading hierarchy
+- ✅ ARIA labels and roles throughout
+- ✅ Keyboard navigation support
+- ✅ Roving tabindex for locker grid navigation
+- ✅ Focus-visible states for all interactive elements
+- ✅ Focus trap in modals and dialogs
+- ✅ Skip link for main content
+- ✅ Screen reader announcements for status changes
+- ✅ Color contrast compliant design tokens
+
+### UI/UX Enhancements
+- ✅ Light/Dark theme with localStorage persistence
+- ✅ Micro-interactions and animations (150-200ms transitions)
+- ✅ Toast notifications for user feedback
+- ✅ Responsive design for mobile and desktop
+- ✅ Loading states and skeletons
 
 ## Tech Stack
 
-- **Frontend**: React + Vite (TypeScript), TailwindCSS
-- **Backend**: Node.js + Express (TypeScript)
-- **Data Store**: In-memory with pluggable persistence interface
-- **State Management**: React Query for data fetching/caching
-- **Forms**: React Hook Form
+- **Frontend**: React 19 + TypeScript + Vite 7
+- **Styling**: TailwindCSS 4 with CSS custom properties
+- **State Management**: React Query (TanStack Query)
+- **Routing**: React Router 7
+- **UI Components**: Headless UI + Lucide Icons
+- **Notifications**: React Hot Toast
 
 ## Getting Started
 
 ### Prerequisites
 - Node.js 18+ 
-- npm or pnpm
+- npm 9+
 
 ### Installation
 
-1. Clone the repository:
 \`\`\`bash
+# Clone the repository
 git clone https://github.com/TheLevatron/lockr-prototype.git
 cd lockr-prototype
-\`\`\`
 
-2. Install dependencies:
-\`\`\`bash
+# Install dependencies
 npm install
-\`\`\`
 
-3. Configure environment (optional):
-\`\`\`bash
-cp server/.env.example server/.env
-\`\`\`
+# Copy environment file
+cp .env.example .env
 
-### Running the Application
-
-**Development Mode** (runs both client and server):
-\`\`\`bash
+# Start development server
 npm run dev
 \`\`\`
 
-This starts:
-- Backend API on http://localhost:3001
-- Frontend on http://localhost:5173
+### Available Scripts
 
-**Production Build**:
 \`\`\`bash
-npm run build
-npm start
+npm run dev      # Start development server
+npm run build    # Build for production
+npm run lint     # Run ESLint
+npm run preview  # Preview production build
 \`\`\`
 
-### Demo Accounts
+## Demo Credentials
 
-The system is seeded with demo accounts:
-
-| Role | Email | Password |
-|------|-------|----------|
-| Student | student@iacademy.edu.ph | student123 |
-| Admin | admin@iacademy.edu.ph | admin123 |
-
-## Thesis Alignment
-
-This implementation aligns with the thesis document as follows:
-
-| Feature | Thesis Reference | Implementation |
-|---------|------------------|----------------|
-| Student Login | Section 1.1, 3.3.1 | JWT-based authentication with email/password |
-| Locker Grid View | Section 3.4.1.5 | Visual grid showing locker availability by color |
-| Status Colors | Section 3.3.9.4 | Green (Available), Yellow (Reserved), Red (Occupied), Gray (Unavailable) |
-| Referral Slip | Section 3.3.9.3 | Auto-generated unique referral slip number |
-| Reservation Flow | Section 3.3.4, 3.3.5 | Pending → For Endorsement → For Approval → Approved |
-| Rules & Regulations | Section 3.4.1.7 | Policy acceptance modal before reservation |
-| Admin Dashboard | Section 3.4.3 | Reservation management with endorsement/approval workflow |
-| Floor Selection | Section 3.4.1.4 | Location and floor-based locker browsing |
-| Data Model | Section 3.3.8, 3.3.9 | Student, Locker, FloorPlan, Reservation entities |
-
-## API Endpoints
-
-### Authentication
-- \`POST /api/auth/register\` - Register new user
-- \`POST /api/auth/login\` - User login
-- \`GET /api/auth/me\` - Get current user
-
-### Lockers
-- \`GET /api/lockers\` - List all lockers
-- \`GET /api/lockers/availability\` - Get available lockers (with filters)
-- \`GET /api/lockers/location/:id\` - Get lockers by location
-- \`POST /api/lockers\` - Create locker (admin)
-- \`PUT /api/lockers/:id\` - Update locker (admin)
-- \`DELETE /api/lockers/:id\` - Delete locker (admin)
-
-### Reservations
-- \`GET /api/reservations\` - List reservations
-- \`POST /api/reservations\` - Create reservation
-- \`PUT /api/reservations/:id/agreement\` - Accept agreement
-- \`PUT /api/reservations/:id/submit\` - Submit for endorsement
-- \`PUT /api/reservations/:id/endorse\` - Endorse (admin)
-- \`PUT /api/reservations/:id/approve\` - Approve (admin)
-- \`PUT /api/reservations/:id/cancel\` - Cancel reservation
-- \`PUT /api/reservations/:id/extend\` - Extend reservation
-
-### Locations
-- \`GET /api/locations\` - List locations
-- \`GET /api/locations/:id/floors\` - Get floor plans
-- \`POST /api/locations\` - Create location (admin)
-- \`POST /api/locations/:id/floors\` - Create floor plan (admin)
-
-### Policies
-- \`GET /api/policies\` - List policies
+| Role    | Email             | Password   |
+|---------|-------------------|------------|
+| Student | student@lockr.edu | student123 |
+| Officer | officer@lockr.edu | officer123 |
+| Admin   | admin@lockr.edu   | admin123   |
 
 ## Project Structure
 
 \`\`\`
-lockr-prototype/
-├── client/                 # React frontend
-│   ├── src/
-│   │   ├── components/    # Reusable UI components
-│   │   ├── context/       # React context (Auth)
-│   │   ├── hooks/         # Custom React hooks
-│   │   ├── lib/           # Utilities (API client)
-│   │   ├── pages/         # Page components
-│   │   └── types/         # TypeScript types
-│   └── ...
-├── server/                 # Express backend
-│   ├── src/
-│   │   ├── data/          # Data store and seed
-│   │   ├── middleware/    # Express middleware
-│   │   ├── routes/        # API routes
-│   │   ├── services/      # Business logic
-│   │   └── types/         # TypeScript types
-│   └── ...
-├── docs/                   # Documentation
-└── package.json           # Root package.json
+src/
+├── components/
+│   ├── admin/          # Admin-specific components
+│   ├── layout/         # AppShell, Sidebar, Topbar
+│   ├── ui/             # Reusable UI components
+│   └── user/           # User-specific components
+├── context/            # React contexts (Theme, Auth)
+├── pages/
+│   ├── admin/          # Admin pages
+│   └── user/           # User pages
+├── services/           # API services and mock data
+├── styles/             # CSS and design tokens
+├── types/              # TypeScript type definitions
+└── utils/              # Utility functions
 \`\`\`
 
-## Future Work
+## Thesis Section Mapping
 
-Based on the thesis requirements, the following features could be implemented:
+| Screen | Thesis Section |
+|--------|----------------|
+| Splash/Landing | Section 1 - Introduction |
+| Login | Section 4.1 - User Authentication |
+| Floor Plan Selection | Section 4.2 - Locker Location |
+| Locker Grid | Section 4.2 - Locker Selection |
+| Reservation Policy | Section 4.3 - Terms and Conditions |
+| Receipt Upload | Section 4.4 - Payment Verification |
+| Verified Receipt | Section 4.4 - Confirmation |
+| Admin Dashboard | Section 5.1 - Administrative Functions |
+| For Endorsement | Section 5.2 - Officer Endorsement |
+| For Approval | Section 5.3 - Admin Approval |
+| Floor Plan Editor | Section 5.4 - Locker Management |
+| Academic Year | Section 5.5 - Academic Period Setup |
 
-1. **Campus SSO Integration**: Support for school OAuth/SSO (Microsoft, Google)
-2. **QR Code/NFC**: Physical locker access via QR or NFC
-3. **Payment Integration**: Online payment gateway
-4. **Email Notifications**: Automated emails for reservation status
-5. **Kiosk Mode**: On-site reservation terminal
-6. **Mobile App**: Native mobile application
-7. **Persistent Storage**: SQLite or PostgreSQL database
-8. **Analytics Dashboard**: Usage reports and statistics
-9. **Maintenance Tickets**: Locker maintenance workflow
+## Design Tokens
 
-## Environment Variables
+Design tokens are defined in \`src/styles/tokens.css\`:
 
-| Variable | Description | Default |
-|----------|-------------|---------|
-| PORT | Server port | 3001 |
-| JWT_SECRET | JWT signing secret | (dev default) |
-| CORS_ORIGIN | Allowed CORS origin | http://localhost:5173 |
+- **Colors**: Primary (blue), Success (green), Warning (amber), Error (red), Neutrals
+- **Spacing**: 0-20 scale (0.25rem increments)
+- **Border Radius**: sm, md, lg, xl, 2xl, full
+- **Shadows**: sm, md, lg, xl
+- **Transitions**: fast (150ms), normal (200ms), slow (300ms)
+
+## Accessibility Checklist
+
+- [x] All images have alt text
+- [x] Form inputs have associated labels
+- [x] Color is not the only way to convey information
+- [x] Focus is visible on all interactive elements
+- [x] Modals trap focus and return focus on close
+- [x] Skip navigation link available
+- [x] Heading levels are sequential
+- [x] ARIA landmarks used appropriately
+- [x] Dynamic content updates announced
+
+## Known TODOs
+
+- [ ] Replace mock data with actual API integration
+- [ ] Add policy content from thesis PDF Section 4.3
+- [ ] Implement password reset flow
+- [ ] Add email notifications
+- [ ] Implement locker position drag-and-drop editor
 
 ## License
 
-ISC
+This project is for educational purposes as part of the thesis "LockR: A Digital Platform for Management of School Lockers."
 
 ## References
 
-- Thesis: "LockR: A Digital Platform for Management of School Lockers" (iACADEMY)
-- See \`docs/data-model.md\` for entity relationship diagram
+- Thesis PDF: \`LockR_ A Digital Platform for Management of School Lockers (2)_compressed-compressed.pdf\`

@@ -1,0 +1,168 @@
+/* LockR Design Tokens - Modern Dribbble-Inspired */
+/* Beautiful colors, glassmorphism, modern spacing */
+
+:root {
+  /* Primary Colors - Vibrant Purple/Indigo gradient-friendly */
+  --color-primary-50: #f5f3ff;
+  --color-primary-100: #ede9fe;
+  --color-primary-200: #ddd6fe;
+  --color-primary-300: #c4b5fd;
+  --color-primary-400: #a78bfa;
+  --color-primary-500: #8b5cf6;
+  --color-primary-600: #7c3aed;
+  --color-primary-700: #6d28d9;
+  --color-primary-800: #5b21b6;
+  --color-primary-900: #4c1d95;
+
+  /* Accent Colors - Vibrant Cyan/Teal */
+  --color-accent-400: #22d3ee;
+  --color-accent-500: #06b6d4;
+  --color-accent-600: #0891b2;
+
+  /* Secondary Colors - Green for success */
+  --color-success-50: #ecfdf5;
+  --color-success-100: #d1fae5;
+  --color-success-200: #a7f3d0;
+  --color-success-300: #6ee7b7;
+  --color-success-400: #34d399;
+  --color-success-500: #10b981;
+  --color-success-600: #059669;
+  --color-success-700: #047857;
+
+  /* Warning Colors - Warm Amber */
+  --color-warning-50: #fffbeb;
+  --color-warning-100: #fef3c7;
+  --color-warning-200: #fde68a;
+  --color-warning-400: #fbbf24;
+  --color-warning-500: #f59e0b;
+  --color-warning-600: #d97706;
+
+  /* Error Colors - Soft Red */
+  --color-error-50: #fef2f2;
+  --color-error-100: #fee2e2;
+  --color-error-200: #fecaca;
+  --color-error-400: #f87171;
+  --color-error-500: #ef4444;
+  --color-error-600: #dc2626;
+  --color-error-700: #b91c1c;
+
+  /* Neutral Colors - Soft Light theme */
+  --color-bg-primary: #ffffff;
+  --color-bg-secondary: #fafbfc;
+  --color-bg-tertiary: #f3f4f6;
+  --color-bg-hover: #e5e7eb;
+  --color-bg-glass: rgba(255, 255, 255, 0.7);
+  
+  --color-text-primary: #111827;
+  --color-text-secondary: #4b5563;
+  --color-text-tertiary: #9ca3af;
+  --color-text-inverse: #ffffff;
+  
+  --color-border-primary: #e5e7eb;
+  --color-border-secondary: #d1d5db;
+  --color-border-focus: var(--color-primary-500);
+
+  /* Sidebar - Modern dark gradient */
+  --color-sidebar-bg: linear-gradient(180deg, #1f2937 0%, #111827 100%);
+  --color-sidebar-bg-solid: #1f2937;
+  --color-sidebar-text: #f3f4f6;
+  --color-sidebar-hover: rgba(255, 255, 255, 0.08);
+  --color-sidebar-active: var(--color-primary-600);
+
+  /* Locker states - More vibrant */
+  --color-locker-available: #10b981;
+  --color-locker-occupied: #f43f5e;
+  --color-locker-reserved: #f59e0b;
+  --color-locker-pending: #8b5cf6;
+  --color-locker-disabled: #9ca3af;
+
+  /* Gradients */
+  --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --gradient-hero: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #a855f7 100%);
+  --gradient-card: linear-gradient(145deg, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.7) 100%);
+  --gradient-success: linear-gradient(135deg, #10b981 0%, #34d399 100%);
+  --gradient-warning: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
+
+  /* Spacing scale (in rem) */
+  --space-0: 0;
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-20: 5rem;
+
+  /* Border radius - More rounded for modern look */
+  --radius-none: 0;
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-2xl: 1.25rem;
+  --radius-3xl: 1.5rem;
+  --radius-full: 9999px;
+
+  /* Shadows - Softer, more modern */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.04);
+  --shadow-md: 0 4px 12px -2px rgb(0 0 0 / 0.08);
+  --shadow-lg: 0 12px 24px -4px rgb(0 0 0 / 0.1);
+  --shadow-xl: 0 24px 48px -12px rgb(0 0 0 / 0.15);
+  --shadow-glow: 0 0 40px -10px var(--color-primary-500);
+  --shadow-card: 0 2px 8px -2px rgb(0 0 0 / 0.05), 0 4px 16px -4px rgb(0 0 0 / 0.08);
+
+  /* Transitions - Smooth cubic bezier */
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-normal: 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-spring: 500ms cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* Font sizes */
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 1.875rem;
+  --text-4xl: 2.25rem;
+  --text-5xl: 3rem;
+  --text-6xl: 3.75rem;
+
+  /* Z-index scale */
+  --z-base: 0;
+  --z-dropdown: 100;
+  --z-sticky: 200;
+  --z-modal: 300;
+  --z-toast: 400;
+  --z-tooltip: 500;
+}
+
+/* Dark theme */
+.dark {
+  --color-bg-primary: #0f172a;
+  --color-bg-secondary: #1e293b;
+  --color-bg-tertiary: #334155;
+  --color-bg-hover: #475569;
+  --color-bg-glass: rgba(30, 41, 59, 0.8);
+  
+  --color-text-primary: #f8fafc;
+  --color-text-secondary: #cbd5e1;
+  --color-text-tertiary: #64748b;
+  --color-text-inverse: #0f172a;
+  
+  --color-border-primary: #334155;
+  --color-border-secondary: #475569;
+  
+  --color-sidebar-bg: linear-gradient(180deg, #0f172a 0%, #020617 100%);
+  --color-sidebar-bg-solid: #0f172a;
+  --color-sidebar-text: #e2e8f0;
+  --color-sidebar-hover: rgba(255, 255, 255, 0.05);
+  
+  --gradient-card: linear-gradient(145deg, rgba(30,41,59,0.9) 0%, rgba(15,23,42,0.8) 100%);
+  --shadow-card: 0 2px 8px -2px rgb(0 0 0 / 0.2), 0 4px 16px -4px rgb(0 0 0 / 0.3);
+}

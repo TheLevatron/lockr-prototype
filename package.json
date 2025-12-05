@@ -1,38 +1,38 @@
 {
   "name": "lockr-prototype",
-  "version": "1.0.0",
-  "description": "LockR - A Digital Platform for Management of School Lockers",
   "private": true,
-  "workspaces": ["client", "server"],
+  "version": "1.0.0",
+  "type": "module",
   "scripts": {
-    "dev": "concurrently \"npm run dev:server\" \"npm run dev:client\"",
-    "dev:server": "cd server && npm run dev",
-    "dev:client": "cd client && npm run dev",
-    "build": "npm run build:server && npm run build:client",
-    "build:server": "cd server && npm run build",
-    "build:client": "cd client && npm run build",
-    "start": "cd server && npm start",
-    "test": "npm run test:server && npm run test:client",
-    "test:server": "cd server && npm test",
-    "test:client": "cd client && npm test",
-    "lint": "npm run lint:server && npm run lint:client",
-    "lint:server": "cd server && npm run lint",
-    "lint:client": "cd client && npm run lint"
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "lint": "eslint .",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@headlessui/react": "^2.2.9",
+    "@tanstack/react-query": "^5.90.11",
+    "clsx": "^2.1.1",
+    "lucide-react": "^0.469.0",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "react-hot-toast": "^2.6.0",
+    "react-router-dom": "^7.10.0",
+    "tailwindcss": "^4.1.17"
   },
   "devDependencies": {
-    "concurrently": "^8.2.2"
-  },
-  "keywords": [
-    "locker",
-    "reservation",
-    "school",
-    "management",
-    "iACADEMY"
-  ],
-  "author": "",
-  "license": "ISC",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/TheLevatron/lockr-prototype"
+    "@eslint/js": "^9.39.1",
+    "@tailwindcss/vite": "^4.1.17",
+    "@types/node": "^24.10.1",
+    "@types/react": "^19.2.5",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^5.1.1",
+    "eslint": "^9.39.1",
+    "eslint-plugin-react-hooks": "^7.0.1",
+    "eslint-plugin-react-refresh": "^0.4.24",
+    "globals": "^16.5.0",
+    "typescript": "~5.9.3",
+    "typescript-eslint": "^8.46.4",
+    "vite": "^7.2.4"
   }
 }
