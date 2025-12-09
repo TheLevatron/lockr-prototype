@@ -21,10 +21,22 @@ if (!$selectedFloor || !in_array($selectedFloor, [6, 7, 9, 10])) {
 
 // Fetch lockers for selected floor
 try {
-    $stmt = $pdo->prepare("SELECT * FROM lockers WHERE floor_number = ? ORDER BY locker_number");
-    $stmt->execute([$selectedFloor]);
-    $lockers = $stmt->fetchAll();
-} catch (PDOException $e) {
+    if (USE_JSON_STORAGE) {
+        // JSON Storage Mode
+        $all_lockers = $jsonDB->findAll('lockers.json', 'floor_number', $selectedFloor);
+        
+        // Sort by locker number
+        usort($all_lockers, function($a, $b) {
+            return strcmp($a['locker_number'], $b['locker_number']);
+        });
+        $lockers = $all_lockers;
+    } else {
+        // MySQL Mode
+        $stmt = $pdo->prepare("SELECT * FROM lockers WHERE floor_number = ? ORDER BY locker_number");
+        $stmt->execute([$selectedFloor]);
+        $lockers = $stmt->fetchAll();
+    }
+} catch (Exception $e) {
     error_log("Fetch lockers error: " . $e->getMessage());
     $lockers = [];
 }

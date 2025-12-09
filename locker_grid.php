@@ -22,16 +22,41 @@ if (!$floor || !in_array($floor, [6, 7, 9, 10])) {
 
 // Fetch lockers for this floor
 try {
-    $stmt = $pdo->prepare("SELECT locker_id, locker_number, floor_number, grid_position_x, grid_position_y, status FROM lockers WHERE floor_number = ? ORDER BY grid_position_y, grid_position_x");
-    $stmt->execute([$floor]);
-    $lockers = $stmt->fetchAll();
+    if (USE_JSON_STORAGE) {
+        // JSON Storage Mode
+        $all_lockers = $jsonDB->findAll('lockers.json', 'floor_number', $floor);
+        
+        // Sort by grid position
+        usort($all_lockers, function($a, $b) {
+            if ($a['grid_position_y'] != $b['grid_position_y']) {
+                return $a['grid_position_y'] - $b['grid_position_y'];
+            }
+            return $a['grid_position_x'] - $b['grid_position_x'];
+        });
+        $lockers = $all_lockers;
+        
+        // Check if user has an active reservation
+        $user_reservations = $jsonDB->findAll('reservations.json', 'user_id', $_SESSION['user_id']);
+        $hasActiveReservation = false;
+        foreach ($user_reservations as $res) {
+            if (in_array($res['status'], ['pending', 'approved', 'active'])) {
+                $hasActiveReservation = true;
+                break;
+            }
+        }
+    } else {
+        // MySQL Mode
+        $stmt = $pdo->prepare("SELECT locker_id, locker_number, floor_number, grid_position_x, grid_position_y, status FROM lockers WHERE floor_number = ? ORDER BY grid_position_y, grid_position_x");
+        $stmt->execute([$floor]);
+        $lockers = $stmt->fetchAll();
+        
+        // Check if user has an active reservation
+        $stmt = $pdo->prepare("SELECT COUNT(*) FROM reservations WHERE user_id = ? AND status IN ('pending', 'approved', 'active')");
+        $stmt->execute([$_SESSION['user_id']]);
+        $hasActiveReservation = $stmt->fetchColumn() > 0;
+    }
     
-    // Check if user has an active reservation
-    $stmt = $pdo->prepare("SELECT COUNT(*) FROM reservations WHERE user_id = ? AND status IN ('pending', 'approved', 'active')");
-    $stmt->execute([$_SESSION['user_id']]);
-    $hasActiveReservation = $stmt->fetchColumn() > 0;
-    
-} catch (PDOException $e) {
+} catch (Exception $e) {
     error_log("Locker grid error: " . $e->getMessage());
     $lockers = [];
     $hasActiveReservation = false;
@@ -54,17 +79,31 @@ foreach ($lockers as $locker) {
 // Check for pending reservations to show as yellow
 $reservedLockers = [];
 try {
-    $stmt = $pdo->prepare("
-        SELECT locker_id 
-        FROM reservations 
-        WHERE status IN ('pending', 'approved') 
-        AND locker_id IN (SELECT locker_id FROM lockers WHERE floor_number = ?)
-    ");
-    $stmt->execute([$floor]);
-    while ($row = $stmt->fetch()) {
-        $reservedLockers[] = $row['locker_id'];
+    if (USE_JSON_STORAGE) {
+        // JSON Storage Mode
+        $all_reservations = $jsonDB->findAll('reservations.json');
+        foreach ($all_reservations as $res) {
+            if (in_array($res['status'], ['pending', 'approved'])) {
+                $locker = $jsonDB->find('lockers.json', 'locker_id', $res['locker_id']);
+                if ($locker && $locker['floor_number'] == $floor) {
+                    $reservedLockers[] = $res['locker_id'];
+                }
+            }
+        }
+    } else {
+        // MySQL Mode
+        $stmt = $pdo->prepare("
+            SELECT locker_id 
+            FROM reservations 
+            WHERE status IN ('pending', 'approved') 
+            AND locker_id IN (SELECT locker_id FROM lockers WHERE floor_number = ?)
+        ");
+        $stmt->execute([$floor]);
+        while ($row = $stmt->fetch()) {
+            $reservedLockers[] = $row['locker_id'];
+        }
     }
-} catch (PDOException $e) {
+} catch (Exception $e) {
     error_log("Reserved lockers error: " . $e->getMessage());
 }
 
