@@ -32,71 +32,93 @@ A web-based locker management system for iACADEMY that digitizes the manual lock
 - PHP 7.4 or higher
 - MySQL 5.7+ or MariaDB
 - Apache web server
-- XAMPP/WAMP (recommended for local development)
+- XAMPP/WAMP/MAMP (recommended for local development)
 
-### Setup Steps
+### Quick Setup Guide
 
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/TheLevatron/lockr-prototype.git
-   cd lockr-prototype
+#### Step 1: Clone or Download the Repository
+```bash
+git clone https://github.com/TheLevatron/lockr-prototype.git
+```
+
+Or download as ZIP and extract it.
+
+#### Step 2: Move to Web Server Directory
+
+**For XAMPP (Windows):**
+- Move the `lockr-prototype` folder to `C:\xampp\htdocs\`
+
+**For XAMPP (Mac/Linux):**
+- Move to `/Applications/XAMPP/htdocs/` or `/opt/lampp/htdocs/`
+
+**For WAMP (Windows):**
+- Move to `C:\wamp64\www\`
+
+**For MAMP (Mac):**
+- Move to `/Applications/MAMP/htdocs/`
+
+#### Step 3: Start Your Web Server
+- Open XAMPP/WAMP/MAMP Control Panel
+- Start **Apache** and **MySQL** services
+
+#### Step 4: Create Database Using phpMyAdmin
+
+1. Open your browser and go to: **http://localhost/phpmyadmin**
+2. Click on **"New"** in the left sidebar
+3. Enter database name: `lockr_db`
+4. Select **utf8mb4_unicode_ci** as collation
+5. Click **"Create"**
+
+#### Step 5: Import Database Schema
+
+1. Click on the `lockr_db` database you just created
+2. Click on the **"Import"** tab at the top
+3. Click **"Choose File"**
+4. Navigate to your project folder: `lockr-prototype/database/`
+5. Select **`schema.sql`**
+6. Click **"Go"** at the bottom
+7. Wait for success message: "Import has been successfully finished"
+
+#### Step 6: Import Sample Data
+
+1. Stay in the **"Import"** tab
+2. Click **"Choose File"** again
+3. Select **`sample_data.sql`** from the `database/` folder
+4. Click **"Go"**
+5. Wait for success message
+
+#### Step 7: Configure Database Connection (If Needed)
+
+**Most users can skip this step** - the default settings work for XAMPP/WAMP/MAMP.
+
+Only edit if you have a custom MySQL password:
+1. Open `config/db_connect.php` in a text editor
+2. Update line 8 if you have a MySQL password:
+   ```php
+   define('DB_PASS', 'your_password_here');
    ```
+3. Save the file
 
-2. **Configure Web Server**
-   - If using XAMPP, copy the project to `C:\xampp\htdocs\lockr-prototype`
-   - If using WAMP, copy to `C:\wamp64\www\lockr-prototype`
-   - Or configure Apache DocumentRoot to point to the project directory
+#### Step 8: Access the Application
 
-3. **Create Database**
-   - Open phpMyAdmin (http://localhost/phpmyadmin)
-   - Create a new database named `lockr_db`
-   - Import the schema:
-     ```sql
-     source database/schema.sql
-     ```
-   - Import sample data:
-     ```sql
-     source database/sample_data.sql
-     ```
+Open your browser and navigate to:
+```
+http://localhost/lockr-prototype
+```
 
-   **OR** run these commands in MySQL:
-   ```bash
-   mysql -u root -p
-   CREATE DATABASE lockr_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-   USE lockr_db;
-   source database/schema.sql;
-   source database/sample_data.sql;
-   ```
+You should see the login page! 🎉
 
-4. **Configure Database Connection**
-   - Open `config/db_connect.php`
-   - Update the database credentials if needed:
-     ```php
-     define('DB_HOST', 'localhost');
-     define('DB_NAME', 'lockr_db');
-     define('DB_USER', 'root');
-     define('DB_PASS', ''); // Your MySQL password
-     ```
+### Test Login Credentials
 
-5. **Set Permissions**
-   - Ensure the `uploads/referral_slips/` directory is writable:
-     ```bash
-     chmod 755 uploads/referral_slips
-     ```
+#### Admin Account
+- **Email:** `admin1@iacademy.edu.ph`
+- **Password:** `password123`
 
-6. **Access the Application**
-   - Open your browser and navigate to: `http://localhost/lockr-prototype`
-   - Or if using a virtual host: `http://lockr.local`
+#### Student Accounts
+- **Email:** `student1@iacademy.edu.ph` (or student2, student3, student4, student5)
+- **Password:** `password123`
 
-## Test Credentials
-
-### Admin Account
-- Email: `admin1@iacademy.edu.ph`
-- Password: `password123`
-
-### Student Accounts
-- Email: `student1@iacademy.edu.ph` to `student5@iacademy.edu.ph`
-- Password: `password123`
+---
 
 ## Project Structure
 
@@ -223,24 +245,27 @@ See `database/schema.sql` for complete schema definition.
 
 ## Troubleshooting
 
-### Database Connection Error
-- Check if MySQL is running
-- Verify database credentials in `config/db_connect.php`
-- Ensure `lockr_db` database exists
+### "Database connection failed" error
+- ✅ Make sure MySQL is running in XAMPP/WAMP/MAMP Control Panel
+- ✅ Verify the database `lockr_db` was created in phpMyAdmin
+- ✅ Check if you need to set a password in `config/db_connect.php`
 
-### File Upload Not Working
-- Check `uploads/referral_slips/` directory exists
-- Verify directory has write permissions (755 or 777)
-- Check PHP `upload_max_filesize` and `post_max_size` in php.ini
+### "Page not found" error
+- ✅ Ensure the folder is in the correct htdocs or www directory
+- ✅ Check the URL: `http://localhost/lockr-prototype` (not lockr-prototype.com)
+- ✅ Make sure Apache is running
 
-### Session Issues
-- Ensure `session.save_path` is writable
-- Check PHP error logs for session warnings
+### File upload not working
+- ✅ Check that `uploads/referral_slips/` folder exists
+- ✅ On Mac/Linux, you may need to set permissions:
+  ```bash
+  chmod -R 755 uploads
+  ```
 
-### Page Not Found (404)
-- Verify Apache mod_rewrite is enabled (if using URL rewriting)
-- Check DocumentRoot configuration
-- Ensure all files are in the correct directory
+### Can't login
+- ✅ Ensure you imported both `schema.sql` AND `sample_data.sql`
+- ✅ Use the exact test credentials listed above
+- ✅ Try clearing your browser cache
 
 ## Future Enhancements
 
