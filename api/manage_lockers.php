@@ -108,5 +108,5 @@ try {
     }
 } catch (PDOException $e) {
     error_log("Manage lockers error: " . $e->getMessage());
-    echo json_encode(['error' => 'Database error: ' . $e->getMessage()]);
+    echo json_encode(['error' => 'Failed to process locker operation. Please try again.']);
 }
