@@ -4,6 +4,11 @@
 uploads/referral_slips/*
 !uploads/referral_slips/.htaccess
 
+# Data directory - allow structure, optionally ignore modified files
+!/data/
+# Uncomment below to prevent committing modified JSON data (useful in production)
+# data/*.json
+
 # IDE and Editor files
 .vscode/
 .idea/

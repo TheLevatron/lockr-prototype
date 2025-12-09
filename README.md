@@ -21,12 +21,67 @@ A web-based locker management system for iACADEMY that digitizes the manual lock
 - Manage locker status and positions
 
 ## Tech Stack
-- **Backend:** PHP 7.4+ with PDO
-- **Database:** MySQL 5.7+ / MariaDB
+- **Backend:** PHP 7.4+
+- **Storage:** JSON files (Prototype) / MySQL (Production)
 - **Frontend:** HTML5, CSS3, JavaScript
-- **Server:** Apache (XAMPP/WAMP recommended)
+- **Server:** PHP Built-in Server (Prototype) / Apache (Production)
 
-## Installation
+## 🚀 Quick Start (No Installation Required!)
+
+### Prototype Mode - No Database, No XAMPP!
+
+Perfect for quick testing, development, and demonstrations.
+
+#### Requirements:
+- PHP 7.4+ installed on your system
+- That's it! No MySQL, no Apache, no XAMPP needed.
+
+#### Steps:
+
+1. **Download/Clone the Repository**
+   ```bash
+   git clone https://github.com/TheLevatron/lockr-prototype.git
+   cd lockr-prototype
+   ```
+
+2. **Start the Server**
+   
+   **Windows:**
+   - Double-click `START_SERVER.bat`
+   
+   **Mac/Linux:**
+   ```bash
+   chmod +x start_server.sh
+   ./start_server.sh
+   ```
+   
+   **Or manually:**
+   ```bash
+   php -S localhost:8000
+   ```
+
+3. **Access the Application**
+   - Open your browser to: **http://localhost:8000**
+   - Login with test credentials below
+
+4. **Done!** ✨
+
+### Test Credentials (Prototype Mode)
+- **Admin:** `admin1@iacademy.edu.ph` / `password123`
+- **Student:** `student1@iacademy.edu.ph` / `password123`
+
+### About Prototype Mode
+- **Data Storage:** All data is stored in JSON files in the `/data` directory
+- **Persistence:** Changes persist between server restarts
+- **Reset Data:** To reset to defaults, delete the JSON files and restart (they'll be regenerated)
+- **Purpose:** This mode is for development, testing, and demonstrations only
+- **File Uploads:** File uploads work with PHP's built-in server
+
+---
+
+## 📦 Full Installation (Production Mode)
+
+For production use with MySQL database and Apache, follow these steps:
 
 ### Prerequisites
 - PHP 7.4 or higher
@@ -87,17 +142,22 @@ Or download as ZIP and extract it.
 4. Click **"Go"**
 5. Wait for success message
 
-#### Step 7: Configure Database Connection (If Needed)
+#### Step 7: Switch to Production Mode
 
-**Most users can skip this step** - the default settings work for XAMPP/WAMP/MAMP.
-
-Only edit if you have a custom MySQL password:
 1. Open `config/db_connect.php` in a text editor
-2. Update line 8 if you have a MySQL password:
+2. Change line 13 from:
+   ```php
+   define('USE_JSON_STORAGE', true);
+   ```
+   to:
+   ```php
+   define('USE_JSON_STORAGE', false);
+   ```
+3. If you have a custom MySQL password, update line 19:
    ```php
    define('DB_PASS', 'your_password_here');
    ```
-3. Save the file
+4. Save the file
 
 #### Step 8: Access the Application
 
@@ -108,7 +168,7 @@ http://localhost/lockr-prototype
 
 You should see the login page! 🎉
 
-### Test Login Credentials
+### Test Login Credentials (Production Mode)
 
 #### Admin Account
 - **Email:** `admin1@iacademy.edu.ph`
